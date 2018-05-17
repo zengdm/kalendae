@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="kalendae.css" />
+		<script type="text/javascript" src="kalendae.standalone.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<input type="text" id="schedule_date"  value="" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		//日历插件
+		function calendarTool(inputName, disableTime = [], selectedTime = []) {
+			new Kalendae.Input(inputName, {
+				direction: 'any', //past 过去 future 未来 any 任何  today-future未来（包括当天）
+				directionScrolling: true, //指定 direction设定的进行展示，其他不展示
+				months: 3, //展示几个月
+				mode: 'multiple', //模式 single 单选, multiple 多选, range 范围选择
+				blackout: function(date) { //指定日期不能选择
+					for(var i = 0; i < disableTime.length; i++) {
+						if(Kalendae.moment(date).format("YYYY-MM-DD") == disableTime[i]) {
+							return true
+						};
+					}
+				},
+				selected: selectedTime //默认选择日期
+			});
+		};
+		var disableTime = ['2018-05-22', '2018-05-18', '2018-05-19'];
+        var selectedTime = ['2018-05-21','2018-05-25'];
+		
+		calendarTool('schedule_date',disableTime,selectedTime)
+	</script>
+
+</html>
